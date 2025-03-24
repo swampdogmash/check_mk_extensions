@@ -13,28 +13,28 @@ from sys import argv, \
 from git import (Commit,
                  Repo,
                  TagReference)
-version="0.0.0"
+version="9.0.0"
 # only do stuff if git repo path and config file path are given
 if len(argv) > 2:
-    git_repo_path = argv[1]
-    package_file_path = argv[2]
-    if Path(package_file_path).exists() and Path(package_file_path).is_file():
-        # get version information from git repo
-        repo = Repo(path=git_repo_path, search_parent_directories=True)
-
-        print(repo.head.commit)
-
-        # if no tag is latest take repo head
-        version_repo = next((tag for tag in repo.tags if tag.commit == repo.head.commit), repo.head.commit)
-        if type(version_repo) == Commit:
-            # first 8 characters of commit added to '0.0.' to get a SemVer version number
-            version = f'0.0.{int(version_repo.hexsha[0:8], 16)}'
-        elif type(version_repo) == TagReference:
-            # Tag
-            version = version_repo.name
-            if version.startswith('v'):
-                version = version.split('v')[1]
-
+#    git_repo_path = argv[1]
+#    package_file_path = argv[2]
+#    if Path(package_file_path).exists() and Path(package_file_path).is_file():
+#        # get version information from git repo
+#        repo = Repo(path=git_repo_path, search_parent_directories=True)
+#
+#        print(repo.head.commit)
+#
+#        # if no tag is latest take repo head
+#        version_repo = next((tag for tag in repo.tags if tag.commit == repo.head.commit), repo.head.commit)
+#        if type(version_repo) == Commit:
+#            # first 8 characters of commit added to '0.0.' to get a SemVer version number
+#            version = f'0.0.{int(version_repo.hexsha[0:8], 16)}'
+#        elif type(version_repo) == TagReference:
+#            # Tag
+#            version = version_repo.name
+#            if version.startswith('v'):
+#                version = version.split('v')[1]
+#
         # open package config file
         with open(package_file_path, 'r') as package_file:
             package_config = eval(package_file.read())
