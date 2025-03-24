@@ -27,7 +27,7 @@ from cmk.gui.valuespec import (
     Tuple
 )
 
-from cmk.gui.plugins.wato import (
+from cmk.gui.plugins.wato.utils import (
     CheckParameterRulespecWithItem,
     rulespec_registry,
     RulespecGroupCheckParametersApplications,
