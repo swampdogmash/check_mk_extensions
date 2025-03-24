@@ -24,7 +24,8 @@ from cmk.gui.valuespec import (
     ListOf,
     MonitoringState,
     TextAscii,
-    Tuple
+    Tuple,
+    Percentage
 )
 
 from cmk.gui.plugins.wato.utils import (
