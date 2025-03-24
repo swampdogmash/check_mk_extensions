@@ -17,7 +17,7 @@ version="9.0.0"
 # only do stuff if git repo path and config file path are given
 if len(argv) > 2:
 #    git_repo_path = argv[1]
-#    package_file_path = argv[2]
+    package_file_path = argv[2]
 #    if Path(package_file_path).exists() and Path(package_file_path).is_file():
 #        # get version information from git repo
 #        repo = Repo(path=git_repo_path, search_parent_directories=True)
