@@ -36,22 +36,22 @@ if len(argv) > 2:
 #                version = version.split('v')[1]
 #
         # open package config file
-        with open(package_file_path, 'r') as package_file:
-            package_config = eval(package_file.read())
+    with open(package_file_path, 'r') as package_file:
+        package_config = eval(package_file.read())
 
         # modify package config
-        package_config['author'] = 'Marcel Pennewiss <opensource@pennewiss.de>'
-        package_config['description'] = 'Monitor health statistics of UPS units supported by Network UPS Tools'
-        package_config['download_url'] = 'https://github.com/mape2k/check_mk_extensions'
-        package_config['title'] = 'Network UPS Tools'
-        package_config['version'] = version
-        package_config['version.min_required'] = '2.0.0'
+    package_config['author'] = 'Marcel Pennewiss <opensource@pennewiss.de>'
+    package_config['description'] = 'Monitor health statistics of UPS units supported by Network UPS Tools'
+    package_config['download_url'] = 'https://github.com/mape2k/check_mk_extensions'
+    package_config['title'] = 'Network UPS Tools'
+    package_config['version'] = version
+    package_config['version.min_required'] = '2.0.0'
 
         # write package config file
-        bla = pformat(package_config, indent=4)
-        with open(package_file_path, 'w') as package_file:
-            # nicely format config file with pformat
-            package_file.write(pformat(package_config, indent=4))
+    bla = pformat(package_config, indent=4)
+    with open(package_file_path, 'w') as package_file:
+        # nicely format config file with pformat
+        package_file.write(pformat(package_config, indent=4))
 #    else:
 #        print(f'Package configuration file path {package_file_path} does not exist. :-(')
 #        exit(1)
