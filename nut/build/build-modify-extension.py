@@ -52,9 +52,9 @@ if len(argv) > 2:
         with open(package_file_path, 'w') as package_file:
             # nicely format config file with pformat
             package_file.write(pformat(package_config, indent=4))
-    else:
-        print(f'Package configuration file path {package_file_path} does not exist. :-(')
-        exit(1)
+#    else:
+#        print(f'Package configuration file path {package_file_path} does not exist. :-(')
+#        exit(1)
 
     # New code to update version number inside the agent script itself
     agent_path = "/omd/sites/cmk/local/share/check_mk/agents/plugins/nut"
