@@ -1,5 +1,10 @@
 #!/bin/bash
+# update to include a plugin version number
+# this is replaced during auto build/docker build
+# and shows up in CheckMKs inventory. Change this if you don't autobuild!
+CMK_VERSION="0.0.0"
 
+# Main NUT output
 if which upsc > /dev/null 2>&1; then
   echo '<<<nut>>>'
   for ups in $(upsc -l 2>/dev/null); do
