@@ -30,7 +30,7 @@ git config --global --add safe.directory $SOURCE
 
 # avoid error:
 # Error removing file /omd/sites/cmk/local/lib/python3/cmk/base/cee/plugins/bakery/yum.py: [Errno 13] Permission denied: '/omd/sites/cmk/local/lib/python3/cmk/base/cee/plugins/bakery/yum.py'
-chmod go+rw $CMK/local/lib/python3/cmk/base/cee/plugins/bakery
+#chmod go+rw $CMK/local/lib/python3/cmk/base/cee/plugins/bakery
 chmod go+rw $CMK/local/lib/python3/cmk_addons/plugins/nut/agent_based
 chmod go+rw $CMK/local/lib/python3/cmk_addons/plugins/nut/checkman
 chmod go+rw $CMK/local/lib/python3/cmk_addons/plugins/nut/rulesets
