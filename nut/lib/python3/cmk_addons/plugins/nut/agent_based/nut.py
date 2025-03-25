@@ -28,18 +28,30 @@ from typing import (
     TypedDict,
     Tuple,
 )
-from .agent_based_api.v1 import (
+from cmk.agent_based.v2 import (
     check_levels,
-    register,
     render,
-    type_defs,
     Metric,
     Result,
     Service,
     ServiceLabel,
     State,
+    AgentSection,
+    SNMPSection,
+    SimpleSNMPSection,
+    CheckPlugin,
+    InventoryPlugin,
+    RuleSetType,
+    CheckResult,
+    DiscoveryResult,
+    StringTable,
+    get_value_store
 )
 import datetime
+
+from collections.abc import Sequence
+
+from cmk.gui.i18n import _
 
 # <<<nut>>>
 # ==> demo_ups <==
@@ -96,7 +108,7 @@ class UpsData(TypedDict, total=False):
 Section = Dict[str, UpsData]
 
 
-def nut_parse(string_table: type_defs.StringTable) -> Section:
+def nut_parse(string_table: StringTable) -> Section:
     parsed: Section = {}
 
     for idx, line in enumerate(string_table):
@@ -125,7 +137,7 @@ def nut_parse(string_table: type_defs.StringTable) -> Section:
     return parsed
 
 
-def discover_nut(section: Section) -> type_defs.DiscoveryResult:
+def discover_nut(section: Section) -> DiscoveryResult:
     for upsname, upsdata in section.items():
         if len(upsdata) > 0:
             yield Service(item=upsname)
@@ -164,7 +176,7 @@ _STATUS_SPECS: Mapping[str, Tuple[State, str]] = {
 }
 
 
-def check_nut(item: str, params: Mapping[str, Any], section: Section) -> type_defs.CheckResult:
+def check_nut(item: str, params: Mapping[str, Any], section: Section) -> CheckResult:
 
     upsData = section.get(item)
     if upsData is None:
@@ -221,21 +233,21 @@ def check_nut(item: str, params: Mapping[str, Any], section: Section) -> type_de
             upsData[metric],
             metric_name="nut_%s" % metric,
             label=_METRIC_SPECS[metric][0],
-            levels_lower=levels_lower if (_METRIC_SPECS[metric][3] and params.get(metric) != (0,0)) else None,
-            levels_upper=levels_upper if (_METRIC_SPECS[metric][4] and params.get(metric) != (0,0)) else None,
+#            levels_lower=levels_lower if (_METRIC_SPECS[metric][3] and params.get(metric) != (0,0)) else None,
+#            levels_upper=levels_upper if (_METRIC_SPECS[metric][4] and params.get(metric) != (0,0)) else None,
             render_func=_METRIC_SPECS[metric][1],
             notice_only=_METRIC_SPECS[metric][2],
             boundaries=(0, None),
         )
 
 
-register.agent_section(
+agent_section_nut = AgentSection(
     name = "nut",
     parse_function = nut_parse
 )
 
 
-register.check_plugin(
+check_plugin_nut = CheckPlugin(
     name = "nut",
     service_name = "UPS %s",
     discovery_function = discover_nut,
